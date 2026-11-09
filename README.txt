@@ -46,3 +46,6 @@ MELHORIAS DA VERSÃO v5:
 - Ranking agora mostra Jogador, Pontos, Tempo (mm:ss.mmm, até o milissegundo) e Data/hora da partida.
 - Recordes antigos (tempo em segundos) são convertidos automaticamente.
 - Correção: as teclas P e Espaço não podem mais travar a digitação do nome no Ranking.
+
+LAYOUT COMPACTO (v5.1):
+- O tabuleiro se ajusta à altura da janela do navegador, para o jogo caber sem rolagem da página. O painel de teclas foi movido para Ajuda > Teclas de controle (F1).

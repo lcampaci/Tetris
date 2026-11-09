@@ -62,3 +62,37 @@ table td:nth-child(3),table td:nth-child(4),table td:nth-child(5){font-family:"C
 td:nth-child(3),td:nth-child(4),td:nth-child(5){white-space:nowrap}
 td:nth-child(3){text-align:right}th:nth-child(3){text-align:right}
 @media(max-width:680px){th,td{padding:6px 3px}table{font-size:10.5px}}
+
+/* ---------- Layout compacto: o jogo cabe na altura da tela, sem rolagem ---------- */
+body{padding:8px;min-height:100vh;min-height:100dvh}
+.desktop{gap:10px}
+.records-window{top:8px;max-height:calc(100vh - 16px);max-height:calc(100dvh - 16px)}
+.titlebar{height:24px}
+.content{padding:5px 6px 4px}
+.game-layout{grid-template-columns:minmax(0,1fr) 142px;gap:8px}
+.board-frame{--bw:min(300px,max(150px,calc((100vh - 118px)/2)));--bw:min(300px,max(150px,calc((100dvh - 118px)/2)));display:block;width:min(100%,calc(var(--bw) + 10px));padding:2px}
+/* a largura do tabuleiro é calculada pela altura disponível (proporção 1:2) */
+#board{width:100%;height:auto;max-height:none}
+.sidebar{gap:5px}
+.panel{padding:4px 6px}
+.panel-title{font-size:11px;margin-bottom:3px}
+#next{width:84px;height:auto;margin:0 auto}
+.stats{gap:3px}.stats div{font-size:11px}.stats strong{font-size:12px}
+.actions{gap:3px}
+.win-button{padding:3px 8px;min-height:25px;font-size:12px}
+.win-button:active{padding:4px 7px 2px 9px}
+.hint{display:none}
+.statusbar{margin-top:5px;padding:2px 6px;min-height:20px}
+.menubar{padding:1px 2px}
+.menubar>.menu-item>button{padding:2px 9px}
+.records-content{padding:8px}
+th,td{padding:5px 4px}
+@media(max-width:680px){
+  body{padding:4px}
+  .desktop{gap:6px}
+  .game-layout{grid-template-columns:minmax(0,1fr) 112px;gap:6px}
+  .board-frame{--bw:min(300px,max(150px,calc((100vh - 205px)/2)));--bw:min(300px,max(150px,calc((100dvh - 205px)/2)))}
+  .mobile-controls{gap:5px;margin-top:5px}.mobile-controls button{min-height:40px;font-size:20px}
+  .actions .win-button{font-size:11px;padding:3px 2px;min-height:24px}
+  #next{width:70px}
+}
