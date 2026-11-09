@@ -59,12 +59,8 @@
     </section>
 
     <section class="window records-window">
-      <header class="titlebar"><div class="title-left"><span>▤</span><span>Hall da Fama</span></div><div class="window-controls"><span>_</span><span>□</span><span>×</span></div></header>
+      <header class="titlebar"><div class="title-left"><span>▤</span><span>Ranking</span></div><div class="window-controls"><span>_</span><span>□</span><span>×</span></div></header>
       <div class="records-content">
-        <div class="record-entry">
-          <label for="playerName">Seu nome:</label>
-          <input id="playerName" maxlength="14" placeholder="Jogador" autocomplete="nickname">
-        </div>
         <table><thead><tr><th>#</th><th>Jogador</th><th>Pontos</th><th>Tempo</th></tr></thead><tbody id="recordsBody"><tr><td colspan="4">Ainda não há recordes.</td></tr></tbody></table>
         <div class="record-actions"><button class="win-button" id="clearRecords">Limpar recordes</button></div>
       </div>
@@ -72,6 +68,18 @@
   </main>
   <dialog id="messageDialog" class="retro-dialog">
     <form method="dialog"><h3 id="dialogTitle">Tetris 3.1</h3><p id="dialogText"></p><button class="win-button primary">OK</button></form>
+  </dialog>
+  <dialog id="recordDialog" class="retro-dialog">
+    <form id="recordForm">
+      <h3>Fim de jogo!</h3>
+      <p id="recordSummary">Sua partida terminou. Digite seu nome para entrar no Ranking.</p>
+      <label for="recordName">Nome do jogador:</label>
+      <input id="recordName" maxlength="14" required autocomplete="off" placeholder="Digite seu nome">
+      <div class="dialog-actions">
+        <button class="win-button primary" type="submit">Salvar recorde</button>
+        <button class="win-button" type="button" id="skipRecord">Agora não</button>
+      </div>
+    </form>
   </dialog>
   <script src="game.js"></script>
 </body>

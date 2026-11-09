@@ -19,3 +19,10 @@ table{width:100%;border-collapse:collapse;font-size:11px}th,td{text-align:left;p
 .retro-dialog{border:2px solid;border-color:#fff #404040 #404040 #fff;background:var(--win);box-shadow:3px 3px #000;max-width:min(360px,90vw);font:13px Tahoma}.retro-dialog::backdrop{background:#0008}.retro-dialog form{padding:5px 14px 14px}.retro-dialog h3{background:var(--blue);color:white;padding:7px;margin:0 -9px 12px;font-size:14px}.retro-dialog p{line-height:1.5}
 @media(max-width:680px){body{padding:8px;display:block}.desktop{grid-template-columns:1fr;gap:10px}.game-layout{grid-template-columns:minmax(0,1fr) 118px;gap:8px}.sidebar{gap:6px}.panel{padding:5px}.hint{display:none}.stats{gap:6px}.stats div{font-size:10px}.stats strong{font-size:11px}.actions .win-button{padding:6px 3px;font-size:11px;min-height:30px}.mobile-controls{display:grid}.board-frame{width:100%}#board{max-height:58vh}.records-content{padding:8px}}
 @media(max-width:360px){.game-layout{grid-template-columns:minmax(0,1fr) 102px}.titlebar{font-size:12px}.mobile-controls button{min-height:43px}}
+
+/* Ranking permanece visível à direita em telas maiores. */
+.records-window{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow:auto}
+#recordName{display:block;width:100%;font:13px Tahoma;padding:7px;margin:7px 0 12px;border:2px solid;border-color:#404040 #fff #fff #404040;background:#fff}
+.dialog-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.retro-dialog label{font-size:12px}
+@media(max-width:680px){.records-window{position:static;max-height:none;overflow:visible}}

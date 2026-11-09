@@ -32,3 +32,9 @@ MÚSICA E CONTROLES DE ÁUDIO:
 - Botão 'Música: ligada/desligada' controla a trilha de fundo.
 - Botão 'Efeitos: ligados/desligados' controla os bipes e efeitos do jogo.
 - O navegador só libera áudio após uma interação do usuário.
+
+MELHORIAS DA VERSÃO v4:
+- O nome do jogador só é solicitado ao terminar a partida.
+- O Ranking fica na coluna direita em telas maiores e passa para baixo no celular.
+- O menu Jogo não reinicia mais a partida; use o botão Reiniciar para isso.
+- É possível fechar a solicitação de nome sem salvar o resultado.
