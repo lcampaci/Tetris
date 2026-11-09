@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#c0c0c0">
+  <meta name="description" content="Tetris retrô inspirado no Windows 3.1.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Tetris 3.1</title>
+</head>
+<body>
+  <main class="desktop">
+    <section class="window" aria-label="Tetris">
+      <header class="titlebar">
+        <div class="title-left"><span class="app-icon">▦</span><span>Tetris 3.1</span></div>
+        <div class="window-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+      </header>
+      <nav class="menubar">
+        <button id="menuNew">Jogo</button><button id="menuHelp">Ajuda</button>
+      </nav>
+      <div class="content">
+        <div class="game-layout">
+          <div class="board-frame">
+            <canvas id="board" width="300" height="600" aria-label="Tabuleiro do Tetris"></canvas>
+          </div>
+          <aside class="sidebar">
+            <div class="panel next-panel">
+              <div class="panel-title">Próxima peça</div>
+              <canvas id="next" width="120" height="100"></canvas>
+            </div>
+            <div class="stats panel">
+              <div><span>Pontos</span><strong id="score">000000</strong></div>
+              <div><span>Linhas</span><strong id="lines">0</strong></div>
+              <div><span>Nível</span><strong id="level">1</strong></div>
+              <div><span>Tempo</span><strong id="time">00:00</strong></div>
+            </div>
+            <div class="actions">
+              <button class="win-button primary" id="startBtn">Iniciar</button>
+              <button class="win-button" id="pauseBtn" disabled>Pausar</button>
+              <button class="win-button" id="restartBtn">Reiniciar</button>
+            </div>
+            <div class="hint panel"><b>Teclas</b><br>← → mover<br>↑ girar<br>↓ descer<br>Espaço: queda rápida<br>P: pausar</div>
+          </aside>
+        </div>
+        <div class="mobile-controls" aria-label="Controles do jogo">
+          <button data-key="left" aria-label="Mover para esquerda">◀</button>
+          <button data-key="rotate" aria-label="Girar peça">↻</button>
+          <button data-key="down" aria-label="Descer peça">▼</button>
+          <button data-key="right" aria-label="Mover para direita">▶</button>
+          <button data-key="drop" aria-label="Queda rápida">⤓</button>
+        </div>
+        <footer class="statusbar"><span id="status">Pronto. Clique em Iniciar.</span><span>MEM: 640K OK</span></footer>
+      </div>
+    </section>
+
+    <section class="window records-window">
+      <header class="titlebar"><div class="title-left"><span>▤</span><span>Hall da Fama</span></div><div class="window-controls"><span>_</span><span>□</span><span>×</span></div></header>
+      <div class="records-content">
+        <div class="record-entry">
+          <label for="playerName">Seu nome:</label>
+          <input id="playerName" maxlength="14" placeholder="Jogador" autocomplete="nickname">
+        </div>
+        <table><thead><tr><th>#</th><th>Jogador</th><th>Pontos</th><th>Tempo</th></tr></thead><tbody id="recordsBody"><tr><td colspan="4">Ainda não há recordes.</td></tr></tbody></table>
+        <div class="record-actions"><button class="win-button" id="clearRecords">Limpar recordes</button></div>
+      </div>
+    </section>
+  </main>
+  <dialog id="messageDialog" class="retro-dialog">
+    <form method="dialog"><h3 id="dialogTitle">Tetris 3.1</h3><p id="dialogText"></p><button class="win-button primary">OK</button></form>
+  </dialog>
+  <script src="game.js"></script>
+</body>
+</html>
