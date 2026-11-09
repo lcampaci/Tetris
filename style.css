@@ -1,28 +1,64 @@
 *{box-sizing:border-box} :root{--win:#c0c0c0;--dark:#404040;--black:#000;--light:#fff;--blue:#000080}
 body{margin:0;min-height:100vh;background:#008080;font-family:Tahoma,Arial,sans-serif;color:#111;padding:18px;display:flex;justify-content:center;align-items:flex-start}
-.desktop{width:min(900px,100%);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr);gap:14px;align-items:start}
+.desktop{width:min(1080px,100%);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(400px,1fr);gap:14px;align-items:start}
 .window{background:var(--win);border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:2px 2px 0 #000;padding:3px;min-width:0}
 .titlebar{height:27px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:2px 4px 2px 7px;font-weight:bold;font-size:14px}
 .title-left{display:flex;align-items:center;gap:7px}.app-icon{font-size:18px}.window-controls{display:flex;gap:3px}.window-controls span{background:var(--win);color:#111;border:1px solid;border-color:#fff #404040 #404040 #fff;width:20px;height:19px;text-align:center;line-height:16px;font-weight:bold}
-.menubar{display:flex;gap:3px;padding:3px 2px}.menubar button{font:13px Tahoma;background:transparent;border:0;padding:3px 10px}.menubar button:hover{text-decoration:underline}
+.menubar{display:flex;gap:0;padding:2px;border-bottom:1px solid #808080;box-shadow:0 1px 0 #fff;margin-bottom:1px;position:relative;z-index:5}
 .content{padding:8px}.game-layout{display:grid;grid-template-columns:minmax(0,1fr) 155px;gap:12px;align-items:start}
 .board-frame{background:#111;border:3px solid;border-color:#404040 #fff #fff #404040;padding:3px;max-width:100%;margin:auto}
 #board{display:block;width:100%;height:auto;max-height:70vh;image-rendering:pixelated;background:#080808}
 .sidebar{display:flex;flex-direction:column;gap:9px}.panel{border:2px solid;border-color:#404040 #fff #fff #404040;padding:7px;background:#c0c0c0}.panel-title{font-size:12px;font-weight:bold;text-align:center;margin-bottom:4px}
 #next{display:block;width:100%;height:auto;background:#080808;border:1px inset #777;image-rendering:pixelated}
 .stats{display:grid;gap:8px}.stats div{display:flex;justify-content:space-between;gap:4px;font-size:12px}.stats strong{font-family:"Courier New",monospace;font-size:13px}
-.actions{display:grid;gap:6px}.win-button{font:13px Tahoma;background:var(--win);border:2px solid;border-color:#fff #404040 #404040 #fff;padding:7px 10px;min-height:32px}.win-button:active{border-color:#404040 #fff #fff #404040;padding:8px 9px 6px 11px}.win-button:disabled{color:#777}.primary{font-weight:bold}
+.actions{display:grid;gap:6px}.win-button{font:13px Tahoma,Arial,sans-serif;background:var(--win);border:2px solid;border-color:#fff #404040 #404040 #fff;padding:7px 10px;min-height:32px}.win-button:active{border-color:#404040 #fff #fff #404040;padding:8px 9px 6px 11px}.win-button:disabled{color:#777}.primary{font-weight:bold}
 .hint{font-size:11px;line-height:1.55}.statusbar{display:flex;justify-content:space-between;gap:8px;margin-top:9px;padding:4px 6px;border:1px solid;border-color:#777 #fff #fff #777;font-size:11px;min-height:23px}
-.records-content{padding:10px}.record-entry{display:flex;gap:8px;align-items:center;margin-bottom:10px;font-size:12px}.record-entry input{min-width:0;width:100%;font:13px Tahoma;padding:5px;border:2px solid;border-color:#404040 #fff #fff #404040;background:white}
+.records-content{padding:10px}.record-entry{display:flex;gap:8px;align-items:center;margin-bottom:10px;font-size:12px}.record-entry input{min-width:0;width:100%;font:13px Tahoma,Arial,sans-serif;padding:5px;border:2px solid;border-color:#404040 #fff #fff #404040;background:white}
 table{width:100%;border-collapse:collapse;font-size:11px}th,td{text-align:left;padding:6px 4px;border-bottom:1px solid #888}th{background:#aaa}td:nth-child(3),td:nth-child(4){font-family:"Courier New",monospace}.record-actions{margin-top:10px;text-align:right}
 .mobile-controls{display:none;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:10px}.mobile-controls button{font-size:22px;min-height:48px;background:var(--win);border:2px solid;border-color:#fff #404040 #404040 #fff;touch-action: manipulation}
-.retro-dialog{border:2px solid;border-color:#fff #404040 #404040 #fff;background:var(--win);box-shadow:3px 3px #000;max-width:min(360px,90vw);font:13px Tahoma}.retro-dialog::backdrop{background:#0008}.retro-dialog form{padding:5px 14px 14px}.retro-dialog h3{background:var(--blue);color:white;padding:7px;margin:0 -9px 12px;font-size:14px}.retro-dialog p{line-height:1.5}
+.retro-dialog{border:2px solid;border-color:#fff #404040 #404040 #fff;background:var(--win);box-shadow:3px 3px #000;max-width:min(360px,90vw);font:13px Tahoma,Arial,sans-serif}.retro-dialog::backdrop{background:#0008}.retro-dialog form{padding:5px 14px 14px}.retro-dialog h3{background:var(--blue);color:white;padding:7px;margin:0 -9px 12px;font-size:14px}.retro-dialog p{line-height:1.5}
 @media(max-width:680px){body{padding:8px;display:block}.desktop{grid-template-columns:1fr;gap:10px}.game-layout{grid-template-columns:minmax(0,1fr) 118px;gap:8px}.sidebar{gap:6px}.panel{padding:5px}.hint{display:none}.stats{gap:6px}.stats div{font-size:10px}.stats strong{font-size:11px}.actions .win-button{padding:6px 3px;font-size:11px;min-height:30px}.mobile-controls{display:grid}.board-frame{width:100%}#board{max-height:58vh}.records-content{padding:8px}}
 @media(max-width:360px){.game-layout{grid-template-columns:minmax(0,1fr) 102px}.titlebar{font-size:12px}.mobile-controls button{min-height:43px}}
 
 /* Ranking permanece visível à direita em telas maiores. */
 .records-window{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow:auto}
-#recordName{display:block;width:100%;font:13px Tahoma;padding:7px;margin:7px 0 12px;border:2px solid;border-color:#404040 #fff #fff #404040;background:#fff}
+#recordName{display:block;width:100%;font:13px Tahoma,Arial,sans-serif;padding:7px;margin:7px 0 12px;border:2px solid;border-color:#404040 #fff #fff #404040;background:#fff}
 .dialog-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .retro-dialog label{font-size:12px}
 @media(max-width:680px){.records-window{position:static;max-height:none;overflow:visible}}
+
+/* ---------- Menu estilo Windows 3.1 ---------- */
+.menu-item{position:relative}
+.menubar>.menu-item>button{font:13px Tahoma,Arial,sans-serif;color:#000;background:transparent;border:0;padding:3px 10px;cursor:default}
+.menubar>.menu-item>button:hover,.menubar>.menu-item>button[aria-expanded="true"]{background:var(--blue);color:#fff}
+.menubar button:focus-visible,.menu-dropdown button:focus-visible{outline:1px dotted currentColor;outline-offset:-3px}
+.menu-dropdown{position:absolute;top:100%;left:0;min-width:210px;margin:0;padding:2px;list-style:none;background:var(--win);border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:2px 2px 0 #000}
+.menu-dropdown[hidden]{display:none}
+.menu-dropdown button{display:flex;justify-content:space-between;gap:24px;width:100%;font:13px Tahoma,Arial,sans-serif;color:#000;background:transparent;border:0;padding:4px 16px 4px 12px;text-align:left;cursor:default;white-space:nowrap}
+.menu-dropdown button:hover,.menu-dropdown button:focus{background:var(--blue);color:#fff}
+.menu-dropdown kbd{font:12px Tahoma,Arial,sans-serif}
+.menu-sep{height:0;margin:3px 1px;border-top:1px solid #808080;border-bottom:1px solid #fff}
+
+/* ---------- Janelas de diálogo (Windows 3.1) ---------- */
+.retro-dialog{padding:3px;color:#000}
+.retro-dialog form{padding:0 10px 10px}
+.retro-dialog h3{display:flex;align-items:center;justify-content:space-between;margin:0 -7px 12px;padding:3px 4px 3px 8px;height:25px}
+.dlg-x{font:bold 14px Tahoma,Arial,sans-serif;line-height:1;width:20px;height:19px;padding:0;background:var(--win);color:#000;border:1px solid;border-color:#fff #404040 #404040 #fff}
+.dlg-x:active{border-color:#404040 #fff #fff #404040}
+.dialog-text{white-space:pre-line;margin:0 0 14px}
+.about-dialog{max-width:min(470px,94vw);max-height:92vh;overflow:auto}
+.about-head{display:flex;gap:12px;align-items:center;margin:4px 0 10px;line-height:1.4}
+.about-head img{image-rendering:pixelated;border:2px solid;border-color:#404040 #fff #fff #404040}
+.about-box{margin:0 0 8px;padding:6px 10px 8px;border:2px groove #fff}
+.about-box legend{padding:0 4px;font-weight:bold}
+.about-box dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:0;font-size:12px;line-height:1.4}
+.about-box dt{font-weight:bold;white-space:nowrap}.about-box dd{margin:0}
+.about-note{font-size:11px;color:#333;margin:6px 0 12px}
+.retro-dialog .dialog-actions{margin-top:6px}
+
+/* ---------- Ranking ---------- */
+.table-wrap{overflow-x:auto}
+table td:nth-child(3),table td:nth-child(4),table td:nth-child(5){font-family:"Courier New",monospace}
+td:nth-child(3),td:nth-child(4),td:nth-child(5){white-space:nowrap}
+td:nth-child(3){text-align:right}th:nth-child(3){text-align:right}
+@media(max-width:680px){th,td{padding:6px 3px}table{font-size:10.5px}}

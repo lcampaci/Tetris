@@ -38,3 +38,11 @@ MELHORIAS DA VERSÃO v4:
 - O Ranking fica na coluna direita em telas maiores e passa para baixo no celular.
 - O menu Jogo não reinicia mais a partida; use o botão Reiniciar para isso.
 - É possível fechar a solicitação de nome sem salvar o resultado.
+
+MELHORIAS DA VERSÃO v5:
+- Menu no estilo Windows 3.1: "Jogo" foi removido; agora há "Ajuda" (lista suspensa: Como jogar, Teclas, Pontuação, Sobre) e, ao lado, "Sobre".
+- Atalhos: F1 abre a ajuda; Alt+A abre o menu Ajuda; Alt+S abre o Sobre. Abrir uma janela durante a partida pausa o jogo.
+- "Sobre" abre uma janela modal com informações do primeiro Tetris (criador, data, país, local, computador etc.).
+- Ranking agora mostra Jogador, Pontos, Tempo (mm:ss.mmm, até o milissegundo) e Data/hora da partida.
+- Recordes antigos (tempo em segundos) são convertidos automaticamente.
+- Correção: as teclas P e Espaço não podem mais travar a digitação do nome no Ranking.

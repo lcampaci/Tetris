@@ -18,8 +18,20 @@
         <div class="title-left"><span class="app-icon">▦</span><span>Tetris 3.1</span></div>
         <div class="window-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
       </header>
-      <nav class="menubar">
-        <button id="menuNew">Jogo</button><button id="menuHelp">Ajuda</button>
+      <nav class="menubar" role="menubar" aria-label="Menu principal">
+        <div class="menu-item">
+          <button id="menuHelp" role="menuitem" aria-haspopup="true" aria-expanded="false" accesskey="a"><u>A</u>juda</button>
+          <ul class="menu-dropdown" id="helpMenu" role="menu" hidden>
+            <li role="none"><button role="menuitem" data-help="how"><span>Como jogar…</span><kbd>F1</kbd></button></li>
+            <li role="none"><button role="menuitem" data-help="keys"><span>Teclas de controle…</span></button></li>
+            <li role="none"><button role="menuitem" data-help="score"><span>Pontuação…</span></button></li>
+            <li class="menu-sep" role="separator"></li>
+            <li role="none"><button role="menuitem" data-help="about"><span>Sobre o Tetris…</span></button></li>
+          </ul>
+        </div>
+        <div class="menu-item">
+          <button id="menuAbout" role="menuitem" aria-haspopup="dialog" accesskey="s"><u>S</u>obre</button>
+        </div>
       </nav>
       <div class="content">
         <div class="game-layout">
@@ -61,13 +73,41 @@
     <section class="window records-window">
       <header class="titlebar"><div class="title-left"><span>▤</span><span>Ranking</span></div><div class="window-controls"><span>_</span><span>□</span><span>×</span></div></header>
       <div class="records-content">
-        <table><thead><tr><th>#</th><th>Jogador</th><th>Pontos</th><th>Tempo</th></tr></thead><tbody id="recordsBody"><tr><td colspan="4">Ainda não há recordes.</td></tr></tbody></table>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>Jogador</th><th>Pontos</th><th>Tempo</th><th>Data</th></tr></thead><tbody id="recordsBody"><tr><td colspan="5">Ainda não há recordes.</td></tr></tbody></table></div>
         <div class="record-actions"><button class="win-button" id="clearRecords">Limpar recordes</button></div>
       </div>
     </section>
   </main>
   <dialog id="messageDialog" class="retro-dialog">
-    <form method="dialog"><h3 id="dialogTitle">Tetris 3.1</h3><p id="dialogText"></p><button class="win-button primary">OK</button></form>
+    <form method="dialog"><h3><span id="dialogTitle">Tetris 3.1</span><button class="dlg-x" aria-label="Fechar">×</button></h3><p id="dialogText" class="dialog-text"></p><div class="dialog-actions"><button class="win-button primary">OK</button></div></form>
+  </dialog>
+  <dialog id="aboutDialog" class="retro-dialog about-dialog" aria-labelledby="aboutTitle">
+    <form method="dialog">
+      <h3><span id="aboutTitle">Sobre o Tetris</span><button class="dlg-x" aria-label="Fechar">×</button></h3>
+      <div class="about-head">
+        <img src="icon-192.png" width="48" height="48" alt="">
+        <div>
+          <strong>Tetris 3.1 &ndash; versão retrô</strong><br>
+          Homenagem ao quebra-cabeça criado em 1984.
+        </div>
+      </div>
+      <fieldset class="about-box">
+        <legend>O primeiro Tetris</legend>
+        <dl>
+          <dt>Criador</dt><dd>Alexey Pajitnov (Алексей Пажитнов), engenheiro de software e pesquisador</dd>
+          <dt>Data</dt><dd>6 de junho de 1984</dd>
+          <dt>País</dt><dd>União Soviética (hoje Rússia)</dd>
+          <dt>Cidade</dt><dd>Moscou</dd>
+          <dt>Instituição</dt><dd>Centro de Computação Dorodnitsyn, Academia de Ciências da URSS</dd>
+          <dt>Computador</dt><dd>Electronika 60</dd>
+          <dt>Nome</dt><dd>Vem de <i>tetra</i> (“quatro”, em grego, pelas peças de 4 quadrados) + <i>tênis</i>, esporte favorito do criador</dd>
+          <dt>Versão para PC</dt><dd>1985, por Dmitry Pavlovsky e Vadim Gerasimov, para o IBM PC</dd>
+          <dt>Fama mundial</dt><dd>1989, com a versão para Game Boy (Nintendo)</dd>
+        </dl>
+      </fieldset>
+      <p class="about-note">Tetris® é marca registrada de The Tetris Company. Este projeto é uma homenagem independente, sem vínculo oficial.</p>
+      <div class="dialog-actions"><button class="win-button primary">OK</button></div>
+    </form>
   </dialog>
   <dialog id="recordDialog" class="retro-dialog">
     <form id="recordForm">
