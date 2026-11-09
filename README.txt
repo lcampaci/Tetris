@@ -21,3 +21,14 @@ INSTALAÇÃO:
 RECORDES:
 Os 10 melhores resultados ficam no localStorage do navegador/dispositivo.
 Não há servidor ou sincronização entre aparelhos nesta versão.
+
+SONS RETRÔ:
+Os bipes são sintetizados com Web Audio API (sem arquivos externos):
+movimento, rotação, queda, encaixe, linha eliminada, início, pausa e fim de jogo.
+Use o botão 'Som: ligado/desligado' para controlar os efeitos.
+
+MÚSICA E CONTROLES DE ÁUDIO:
+- Trilha original chiptune de 8 bits sintetizada pelo navegador.
+- Botão 'Música: ligada/desligada' controla a trilha de fundo.
+- Botão 'Efeitos: ligados/desligados' controla os bipes e efeitos do jogo.
+- O navegador só libera áudio após uma interação do usuário.
