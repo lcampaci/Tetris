@@ -1,4 +1,5 @@
 (() => {
+  const VERSION='6.0';
   const COLS=10, ROWS=20, SIZE=30;
   const COLORS={I:'#00ffff',O:'#ffff00',T:'#cc66ff',S:'#00dd66',Z:'#ff4444',J:'#4488ff',L:'#ff9900'};
   const SHAPES={
@@ -37,6 +38,16 @@
     drop(){beep(180,.11,'triangle',.055);beep(110,.13,'triangle',.045,.07)},
     lock(){beep(330,.045,'square',.035)},
     line(){beep(660,.08);beep(880,.08,'square',.05,.09);beep(1046,.16,'square',.05,.18)},
+    // Som de subida de nível: cada nível tem um motivo próprio (nota-base sobe 1 semitom por nível,
+    // o desenho do arpejo e a onda mudam a cada nível), tocado logo após o som de linha.
+    levelUp(lv){
+      const motifs=[[0,4,7,12],[0,5,9,12,17],[0,7,12,7,12,16],[0,3,7,10,15],[0,4,7,11,14,19],[0,2,7,9,14]];
+      const waves=['square','triangle','sawtooth','square'];
+      const k=Math.max(0,lv-2), motif=motifs[k%motifs.length], wave=waves[k%waves.length];
+      const cycle=Math.floor(k/12)%3, root=330*Math.pow(2,(k%12)/12+cycle*0.25), step=Math.max(.055,.085-Math.min(k,6)*.004);
+      motif.forEach((semi,i)=>beep(root*Math.pow(2,semi/12),step*1.6,wave,.04,.38+i*step));
+      beep(root*2,.22,'square',.035,.38+motif.length*step);
+    },
     pause(){beep(440,.09,'square',.04);beep(330,.12,'square',.04,.1)},
     over(){beep(440,.13,'square',.05);beep(349,.13,'square',.05,.15);beep(262,.28,'square',.05,.3)}
   };
@@ -105,7 +116,7 @@
   function turn(){if(!running||paused)return;const rotated=rotate(piece.matrix);for(const kick of [0,-1,1,-2,2])if(!collide(piece,0,0,rotated)&&!collide({...piece,x:piece.x+kick},0,0,rotated)){piece.x+=kick;piece.matrix=rotated;sounds.rotate();break}draw();}
   function softDrop(){if(!running||paused)return;if(!collide(piece,0,1)){piece.y++;score+=1;sounds.move()}else lockPiece();updateStats();draw();}
   function hardDrop(){if(!running||paused)return;let n=0;while(!collide(piece,0,1)){piece.y++;n++}score+=n*2;sounds.drop();lockPiece();updateStats();draw();}
-  function lockPiece(){sounds.lock();piece.matrix.forEach((r,y)=>r.forEach((v,x)=>{if(v&&piece.y+y>=0)grid[piece.y+y][piece.x+x]=COLORS[piece.type]}));let cleared=0;for(let y=ROWS-1;y>=0;y--){if(grid[y].every(Boolean)){grid.splice(y,1);grid.unshift(Array(COLS).fill(null));cleared++;y++}}if(cleared){sounds.line();lines+=cleared;score+=[0,100,300,500,800][cleared]*level;level=Math.floor(lines/10)+1}piece=newPiece(nextType);nextType=randomType();if(collide(piece)){finish()}updateStats();}
+  function lockPiece(){sounds.lock();piece.matrix.forEach((r,y)=>r.forEach((v,x)=>{if(v&&piece.y+y>=0)grid[piece.y+y][piece.x+x]=COLORS[piece.type]}));const prevLevel=level;let cleared=0;for(let y=ROWS-1;y>=0;y--){if(grid[y].every(Boolean)){grid.splice(y,1);grid.unshift(Array(COLS).fill(null));cleared++;y++}}if(cleared){sounds.line();lines+=cleared;score+=[0,100,300,500,800][cleared]*level;level=Math.floor(lines/10)+1;if(level>prevLevel){sounds.levelUp(level);setStatus('Nível '+level+'! As peças caem mais rápido.')}}piece=newPiece(nextType);nextType=randomType();if(collide(piece)){finish()}updateStats();}
   function updateStats(){$('score').textContent=String(score).padStart(6,'0');$('lines').textContent=lines;$('level').textContent=level;$('time').textContent=formatTime(currentMs());}
   // Cronômetro em milissegundos: elapsedBefore guarda o tempo acumulado até a última pausa.
   function currentMs(){return running&&!paused?elapsedBefore+(performance.now()-startedAt):elapsedBefore}
@@ -122,12 +133,25 @@
   function loadRecords(){let list=[];try{list=JSON.parse(localStorage.getItem('tetris31-records')||'[]')}catch(e){}return list.map(r=>({name:r.name,score:r.score,ms:r.ms??(r.time||0)*1000,date:r.date||0}))}
   function saveRecord(name){const player=name.trim().slice(0,14);if(!player)return;const list=loadRecords();list.push({name:player,score,ms:Math.round(elapsedBefore),date:Date.now()});list.sort((a,b)=>b.score-a.score||a.ms-b.ms);localStorage.setItem('tetris31-records',JSON.stringify(list.slice(0,10)));renderRecords();setStatus('Recorde salvo no Ranking!');}
   function renderRecords(){const list=loadRecords(),body=$('recordsBody');body.innerHTML='';if(!list.length){body.innerHTML='<tr><td colspan="5">Ainda não há recordes.</td></tr>';return}list.forEach((r,i)=>{const tr=document.createElement('tr');[i+1,r.name,r.score,formatMs(r.ms),formatDate(r.date)].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});body.appendChild(tr)})}
-  function keyHandler(e){if(e.key==='F1'){e.preventDefault();openHelp('how');return}if(e.altKey&&!e.ctrlKey&&!e.metaKey){const k=e.key.toLowerCase();if(k==='a'){e.preventDefault();toggleMenu($('menuHelp'));return}if(k==='s'){e.preventDefault();openAbout();return}}if(e.key==='Escape'){closeMenus();return}if(e.target.closest&&e.target.closest('input,textarea,dialog'))return;if(document.querySelector('dialog[open]'))return;const map={ArrowLeft:()=>move(-1),ArrowRight:()=>move(1),ArrowDown:softDrop,ArrowUp:turn,' ':hardDrop,p:pause,P:pause};if(map[e.key]){e.preventDefault();map[e.key]();}}
+  function keyHandler(e){if(e.key==='F1'){e.preventDefault();openHelp('how');return}if(e.altKey&&!e.ctrlKey&&!e.metaKey){const k=e.key.toLowerCase();if(k==='a'){e.preventDefault();toggleMenu($('menuHelp'));return}if(k==='s'){e.preventDefault();openAbout();return}if(k==='j'){e.preventDefault();showView('game');return}if(k==='r'){e.preventDefault();showView('ranking');return}}if(e.key==='Escape'){closeMenus();return}if(e.target.closest&&e.target.closest('input,textarea,dialog'))return;if(document.querySelector('dialog[open]')||$('viewGame').hidden)return;const map={ArrowLeft:()=>move(-1),ArrowRight:()=>move(1),ArrowDown:softDrop,ArrowUp:turn,' ':hardDrop,p:pause,P:pause};if(map[e.key]){e.preventDefault();map[e.key]();}}
   document.addEventListener('keydown',keyHandler);
   $('startBtn').addEventListener('click',start);$('pauseBtn').addEventListener('click',pause);
   $('soundBtn').addEventListener('click',()=>{soundOn=!soundOn;$('soundBtn').textContent=soundOn?'♪ Efeitos: ligados':'♪ Efeitos: desligados';$('soundBtn').setAttribute('aria-pressed',String(soundOn));if(soundOn){unlockAudio();sounds.start()}});
   $('musicBtn').addEventListener('click',()=>{if(musicOn)stopMusic();else startMusic()});
   $('restartBtn').addEventListener('click',()=>{cancelAnimationFrame(raf);running=false;$('startBtn').disabled=false;$('pauseBtn').disabled=true;reset()});
+  // ----- Abas: Jogo / Ranking (o "Sobre" abre uma janela modal) -----
+  function showView(name){
+    const game=name==='game';
+    if(!game)pauseForDialog();
+    $('viewGame').hidden=!game;$('viewRanking').hidden=game;
+    $('tabGame').classList.toggle('is-active',game);$('tabRanking').classList.toggle('is-active',!game);
+    $('tabGame').setAttribute('aria-selected',String(game));$('tabRanking').setAttribute('aria-selected',String(!game));
+    closeMenus();
+    if(!game)renderRecords();
+  }
+  $('tabGame').addEventListener('click',e=>{e.stopPropagation();showView('game')});
+  $('tabRanking').addEventListener('click',e=>{e.stopPropagation();showView('ranking')});
+  document.querySelectorAll('[data-version]').forEach(el=>el.textContent=VERSION);
   // ----- Menu estilo Windows: Ajuda (lista suspensa) e Sobre (janela modal) -----
   const HELP={
     how:['Ajuda - Como jogar','Complete linhas horizontais, sem espaços vazios, para eliminá-las e marcar pontos.\n\nA cada 10 linhas você sobe de nível e as peças caem mais rápido. O jogo termina quando as peças chegam ao topo.\n\nAo final, informe seu nome para entrar no Ranking, que guarda os 10 melhores resultados neste dispositivo.'],

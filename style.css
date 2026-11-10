@@ -1,6 +1,5 @@
 *{box-sizing:border-box} :root{--win:#c0c0c0;--dark:#404040;--black:#000;--light:#fff;--blue:#000080}
-body{margin:0;min-height:100vh;background:#008080;font-family:Tahoma,Arial,sans-serif;color:#111;padding:18px;display:flex;justify-content:center;align-items:flex-start}
-.desktop{width:min(1080px,100%);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(400px,1fr);gap:14px;align-items:start}
+body{margin:0;min-height:100vh;background:#008080;font-family:Tahoma,Arial,sans-serif;color:#111}
 .window{background:var(--win);border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:2px 2px 0 #000;padding:3px;min-width:0}
 .titlebar{height:27px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:2px 4px 2px 7px;font-weight:bold;font-size:14px}
 .title-left{display:flex;align-items:center;gap:7px}.app-icon{font-size:18px}.window-controls{display:flex;gap:3px}.window-controls span{background:var(--win);color:#111;border:1px solid;border-color:#fff #404040 #404040 #fff;width:20px;height:19px;text-align:center;line-height:16px;font-weight:bold}
@@ -17,15 +16,11 @@ body{margin:0;min-height:100vh;background:#008080;font-family:Tahoma,Arial,sans-
 table{width:100%;border-collapse:collapse;font-size:11px}th,td{text-align:left;padding:6px 4px;border-bottom:1px solid #888}th{background:#aaa}td:nth-child(3),td:nth-child(4){font-family:"Courier New",monospace}.record-actions{margin-top:10px;text-align:right}
 .mobile-controls{display:none;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:10px}.mobile-controls button{font-size:22px;min-height:48px;background:var(--win);border:2px solid;border-color:#fff #404040 #404040 #fff;touch-action: manipulation}
 .retro-dialog{border:2px solid;border-color:#fff #404040 #404040 #fff;background:var(--win);box-shadow:3px 3px #000;max-width:min(360px,90vw);font:13px Tahoma,Arial,sans-serif}.retro-dialog::backdrop{background:#0008}.retro-dialog form{padding:5px 14px 14px}.retro-dialog h3{background:var(--blue);color:white;padding:7px;margin:0 -9px 12px;font-size:14px}.retro-dialog p{line-height:1.5}
-@media(max-width:680px){body{padding:8px;display:block}.desktop{grid-template-columns:1fr;gap:10px}.game-layout{grid-template-columns:minmax(0,1fr) 118px;gap:8px}.sidebar{gap:6px}.panel{padding:5px}.hint{display:none}.stats{gap:6px}.stats div{font-size:10px}.stats strong{font-size:11px}.actions .win-button{padding:6px 3px;font-size:11px;min-height:30px}.mobile-controls{display:grid}.board-frame{width:100%}#board{max-height:58vh}.records-content{padding:8px}}
-@media(max-width:360px){.game-layout{grid-template-columns:minmax(0,1fr) 102px}.titlebar{font-size:12px}.mobile-controls button{min-height:43px}}
 
 /* Ranking permanece visível à direita em telas maiores. */
-.records-window{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow:auto}
 #recordName{display:block;width:100%;font:13px Tahoma,Arial,sans-serif;padding:7px;margin:7px 0 12px;border:2px solid;border-color:#404040 #fff #fff #404040;background:#fff}
 .dialog-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .retro-dialog label{font-size:12px}
-@media(max-width:680px){.records-window{position:static;max-height:none;overflow:visible}}
 
 /* ---------- Menu estilo Windows 3.1 ---------- */
 .menu-item{position:relative}
@@ -61,38 +56,69 @@ table{width:100%;border-collapse:collapse;font-size:11px}th,td{text-align:left;p
 table td:nth-child(3),table td:nth-child(4),table td:nth-child(5){font-family:"Courier New",monospace}
 td:nth-child(3),td:nth-child(4),td:nth-child(5){white-space:nowrap}
 td:nth-child(3){text-align:right}th:nth-child(3){text-align:right}
-@media(max-width:680px){th,td{padding:6px 3px}table{font-size:10.5px}}
 
-/* ---------- Layout compacto: o jogo cabe na altura da tela, sem rolagem ---------- */
-body{padding:8px;min-height:100vh;min-height:100dvh}
-.desktop{gap:10px}
-.records-window{top:8px;max-height:calc(100vh - 16px);max-height:calc(100dvh - 16px)}
-.titlebar{height:24px}
-.content{padding:5px 6px 4px}
-.game-layout{grid-template-columns:minmax(0,1fr) 142px;gap:8px}
-.board-frame{--bw:min(300px,max(150px,calc((100vh - 118px)/2)));--bw:min(300px,max(150px,calc((100dvh - 118px)/2)));display:block;width:min(100%,calc(var(--bw) + 10px));padding:2px}
-/* a largura do tabuleiro é calculada pela altura disponível (proporção 1:2) */
-#board{width:100%;height:auto;max-height:none}
-.sidebar{gap:5px}
+/* ---------- Layout v6: jogo centralizado (PC) e tela cheia (celular) ---------- */
+html,body{height:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;padding:8px;display:flex;align-items:center;justify-content:center;overflow-x:hidden}
+.desktop{width:100%;display:flex;justify-content:center;align-items:center}
+.window{display:flex;flex-direction:column;width:min(560px,100%);height:min(780px,calc(100vh - 16px));height:min(780px,calc(100dvh - 16px))}
+.titlebar{height:24px;flex:none}
+.menubar{flex:none;padding:1px 2px}
+.menubar>.menu-item>button{padding:2px 9px}
+.menubar>.menu-item>button.is-active{box-shadow:inset 1px 1px #404040,inset -1px -1px #fff;background:#d8d8d8;font-weight:bold}
+.menubar>.menu-item>button.is-active:hover{background:var(--blue);color:#fff}
+.content{flex:1;min-height:0;display:flex;flex-direction:column;padding:5px 6px 4px}
+.view{flex:1;min-height:0;display:flex;flex-direction:column}
+.view[hidden]{display:none}
+.game-layout{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:10px;align-items:stretch}
+.board-area{min-width:0;min-height:0;container-type:size;display:flex;align-items:center;justify-content:center}
+.board-frame{--cw:min(calc(100cqw - 10px),calc(50cqh - 5px),340px);width:auto;max-width:none;margin:0;padding:2px;display:block}
+#board{width:var(--cw);height:auto;max-height:none;display:block}
+.sidebar{gap:6px;justify-content:center}
 .panel{padding:4px 6px}
 .panel-title{font-size:11px;margin-bottom:3px}
-#next{width:84px;height:auto;margin:0 auto}
-.stats{gap:3px}.stats div{font-size:11px}.stats strong{font-size:12px}
-.actions{gap:3px}
-.win-button{padding:3px 8px;min-height:25px;font-size:12px}
+#next{width:92px;height:auto;margin:0 auto}
+.stats{gap:4px}.stats div{font-size:12px}.stats strong{font-size:13px}
+.actions{gap:4px}
+.win-button{padding:3px 8px;min-height:27px;font-size:12px}
 .win-button:active{padding:4px 7px 2px 9px}
-.hint{display:none}
-.statusbar{margin-top:5px;padding:2px 6px;min-height:20px}
-.menubar{padding:1px 2px}
-.menubar>.menu-item>button{padding:2px 9px}
+.statusbar{flex:none;margin-top:5px;padding:2px 6px;min-height:20px}
+.statusbar .version{white-space:nowrap;font-weight:bold}
+.mobile-controls{display:none}
+/* Ranking como aba */
+.view-ranking{overflow:auto}
 .records-content{padding:8px}
-th,td{padding:5px 4px}
+th,td{padding:6px 4px}
+/* Sobre: história */
+.about-box.history h4{margin:8px 0 2px;font-size:12px}
+.about-box.history h4:first-of-type{margin-top:2px}
+.about-box.history p{margin:0 0 4px;font-size:12px;line-height:1.45;text-align:justify}
+.about-box dl{grid-template-columns:auto 1fr}
+.about-source{font-size:11px!important;margin-top:8px!important}
+.about-source a{color:var(--blue)}
+.about-dialog{max-width:min(520px,94vw)}
+
+/* ---------- Celular: a janela ocupa a tela inteira ---------- */
 @media(max-width:680px){
-  body{padding:4px}
-  .desktop{gap:6px}
-  .game-layout{grid-template-columns:minmax(0,1fr) 112px;gap:6px}
-  .board-frame{--bw:min(300px,max(150px,calc((100vh - 205px)/2)));--bw:min(300px,max(150px,calc((100dvh - 205px)/2)))}
-  .mobile-controls{gap:5px;margin-top:5px}.mobile-controls button{min-height:40px;font-size:20px}
-  .actions .win-button{font-size:11px;padding:3px 2px;min-height:24px}
-  #next{width:70px}
+  body{padding:0;display:block;background:var(--win)}
+  .desktop{display:block}
+  .window{width:100vw;height:100vh;height:100dvh;border:0;box-shadow:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+  .titlebar{height:26px}
+  .menubar>.menu-item>button{padding:4px 11px;font-size:14px}
+  .content{padding:4px}
+  .game-layout{grid-template-columns:minmax(0,1fr) 108px;gap:6px}
+  .board-frame{--cw:min(calc(100cqw - 10px),calc(50cqh - 5px))}
+  .sidebar{gap:5px;justify-content:space-between;padding:6px 0}
+  .actions{gap:5px}
+  #next{width:76px}
+  .stats div{font-size:11px}.stats strong{font-size:12px}
+  .actions .win-button{font-size:11px;padding:3px 2px;min-height:28px}
+  .mobile-controls{display:grid;flex:none;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:6px}
+  .mobile-controls button{min-height:clamp(44px,8vh,60px);font-size:22px}
+  th,td{padding:6px 3px}table{font-size:10.5px}
+}
+@media(max-width:360px){.game-layout{grid-template-columns:minmax(0,1fr) 98px}.titlebar{font-size:12px}.actions .win-button{font-size:10px}}
+@media(max-width:680px) and (orientation:landscape){
+  .game-layout{grid-template-columns:minmax(0,1fr) 150px}
+  .mobile-controls button{min-height:36px}
 }

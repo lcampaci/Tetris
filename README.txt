@@ -49,3 +49,11 @@ MELHORIAS DA VERSÃO v5:
 
 LAYOUT COMPACTO (v5.1):
 - O tabuleiro se ajusta à altura da janela do navegador, para o jogo caber sem rolagem da página. O painel de teclas foi movido para Ajuda > Teclas de controle (F1).
+
+VERSÃO 6.0 (WEB):
+- Criador e desenvolvedor: Luis Henrique Campaci - criação: 09/11/2026.
+- Abas no menu: Ranking | Jogo | Sobre. "Sobre" abre uma janela modal; Alt+J = Jogo, Alt+R = Ranking, Alt+S = Sobre.
+- O Ranking agora é uma aba (antes ficava em outra janela ao lado), e o jogo fica centralizado no PC.
+- No celular a janela ocupa toda a tela, com o tabuleiro ampliado ao espaço disponível.
+- Cada subida de nível toca um som diferente (nota-base e arpejo variam por nível).
+- Sobre ampliado com a história do Tetris (fonte: Wikipédia). Versão exibida no rodapé.

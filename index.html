@@ -30,51 +30,60 @@
           </ul>
         </div>
         <div class="menu-item">
+          <button id="tabRanking" class="menu-tab" role="tab" aria-selected="false" aria-controls="viewRanking" accesskey="r"><u>R</u>anking</button>
+        </div>
+        <div class="menu-item">
+          <button id="tabGame" class="menu-tab is-active" role="tab" aria-selected="true" aria-controls="viewGame" accesskey="j"><u>J</u>ogo</button>
+        </div>
+        <div class="menu-item">
           <button id="menuAbout" role="menuitem" aria-haspopup="dialog" accesskey="s"><u>S</u>obre</button>
         </div>
       </nav>
       <div class="content">
-        <div class="game-layout">
-          <div class="board-frame">
-            <canvas id="board" width="300" height="600" aria-label="Tabuleiro do Tetris"></canvas>
+        <div class="view view-game" id="viewGame" role="tabpanel" aria-labelledby="tabGame">
+          <div class="game-layout">
+            <div class="board-area">
+              <div class="board-frame">
+                <canvas id="board" width="300" height="600" aria-label="Tabuleiro do Tetris"></canvas>
+              </div>
+            </div>
+            <aside class="sidebar">
+              <div class="panel next-panel">
+                <div class="panel-title">Próxima peça</div>
+                <canvas id="next" width="120" height="100"></canvas>
+              </div>
+              <div class="stats panel">
+                <div><span>Pontos</span><strong id="score">000000</strong></div>
+                <div><span>Linhas</span><strong id="lines">0</strong></div>
+                <div><span>Nível</span><strong id="level">1</strong></div>
+                <div><span>Tempo</span><strong id="time">00:00</strong></div>
+              </div>
+              <div class="actions">
+                <button class="win-button primary" id="startBtn">Iniciar</button>
+                <button class="win-button" id="pauseBtn" disabled>Pausar</button>
+                <button class="win-button" id="restartBtn">Reiniciar</button>
+                <button class="win-button" id="soundBtn" aria-pressed="true">♪ Efeitos: ligados</button>
+                <button class="win-button" id="musicBtn" aria-pressed="false">♫ Música: desligada</button>
+              </div>
+            </aside>
           </div>
-          <aside class="sidebar">
-            <div class="panel next-panel">
-              <div class="panel-title">Próxima peça</div>
-              <canvas id="next" width="120" height="100"></canvas>
-            </div>
-            <div class="stats panel">
-              <div><span>Pontos</span><strong id="score">000000</strong></div>
-              <div><span>Linhas</span><strong id="lines">0</strong></div>
-              <div><span>Nível</span><strong id="level">1</strong></div>
-              <div><span>Tempo</span><strong id="time">00:00</strong></div>
-            </div>
-            <div class="actions">
-              <button class="win-button primary" id="startBtn">Iniciar</button>
-              <button class="win-button" id="pauseBtn" disabled>Pausar</button>
-              <button class="win-button" id="restartBtn">Reiniciar</button>
-              <button class="win-button" id="soundBtn" aria-pressed="true">♪ Efeitos: ligados</button>
-              <button class="win-button" id="musicBtn" aria-pressed="false">♫ Música: desligada</button>
-            </div>
-            <div class="hint panel"><b>Teclas</b><br>← → mover<br>↑ girar<br>↓ descer<br>Espaço: queda rápida<br>P: pausar</div>
-          </aside>
+          <div class="mobile-controls" aria-label="Controles do jogo">
+            <button data-key="left" aria-label="Mover para esquerda">◀</button>
+            <button data-key="rotate" aria-label="Girar peça">↻</button>
+            <button data-key="down" aria-label="Descer peça">▼</button>
+            <button data-key="right" aria-label="Mover para direita">▶</button>
+            <button data-key="drop" aria-label="Queda rápida">⤓</button>
+          </div>
         </div>
-        <div class="mobile-controls" aria-label="Controles do jogo">
-          <button data-key="left" aria-label="Mover para esquerda">◀</button>
-          <button data-key="rotate" aria-label="Girar peça">↻</button>
-          <button data-key="down" aria-label="Descer peça">▼</button>
-          <button data-key="right" aria-label="Mover para direita">▶</button>
-          <button data-key="drop" aria-label="Queda rápida">⤓</button>
-        </div>
-        <footer class="statusbar"><span id="status">Pronto. Clique em Iniciar.</span><span>MEM: 640K OK</span></footer>
-      </div>
-    </section>
 
-    <section class="window records-window">
-      <header class="titlebar"><div class="title-left"><span>▤</span><span>Ranking</span></div><div class="window-controls"><span>_</span><span>□</span><span>×</span></div></header>
-      <div class="records-content">
-        <div class="table-wrap"><table><thead><tr><th>#</th><th>Jogador</th><th>Pontos</th><th>Tempo</th><th>Data</th></tr></thead><tbody id="recordsBody"><tr><td colspan="5">Ainda não há recordes.</td></tr></tbody></table></div>
-        <div class="record-actions"><button class="win-button" id="clearRecords">Limpar recordes</button></div>
+        <div class="view view-ranking" id="viewRanking" role="tabpanel" aria-labelledby="tabRanking" hidden>
+          <div class="records-content">
+            <div class="table-wrap"><table><thead><tr><th>#</th><th>Jogador</th><th>Pontos</th><th>Tempo</th><th>Data</th></tr></thead><tbody id="recordsBody"><tr><td colspan="5">Ainda não há recordes.</td></tr></tbody></table></div>
+            <div class="record-actions"><button class="win-button" id="clearRecords">Limpar recordes</button></div>
+          </div>
+        </div>
+
+        <footer class="statusbar"><span id="status">Pronto. Clique em Iniciar.</span><span class="version">Versão <span data-version>6.0</span></span></footer>
       </div>
     </section>
   </main>
@@ -88,9 +97,18 @@
         <img src="icon-192.png" width="48" height="48" alt="">
         <div>
           <strong>Tetris 3.1 &ndash; versão retrô</strong><br>
-          Homenagem ao quebra-cabeça criado em 1984.
+          Versão <span data-version>6.0</span> &middot; Homenagem ao quebra-cabeça criado em 1984.
         </div>
       </div>
+      <fieldset class="about-box">
+        <legend>Esta versão WEB</legend>
+        <dl>
+          <dt>Criador e desenvolvedor</dt><dd>Luis Henrique Campaci</dd>
+          <dt>Data de criação</dt><dd>09/11/2026</dd>
+          <dt>Versão</dt><dd><span data-version>6.0</span></dd>
+          <dt>Plataforma</dt><dd>Web / PWA (funciona offline e pode ser instalado)</dd>
+        </dl>
+      </fieldset>
       <fieldset class="about-box">
         <legend>O primeiro Tetris</legend>
         <dl>
@@ -104,6 +122,24 @@
           <dt>Versão para PC</dt><dd>1985, por Dmitry Pavlovsky e Vadim Gerasimov, para o IBM PC</dd>
           <dt>Fama mundial</dt><dd>1989, com a versão para Game Boy (Nintendo)</dd>
         </dl>
+      </fieldset>
+      <fieldset class="about-box history">
+        <legend>A história do Tetris</legend>
+        <h4>Da Pentamino ao Electronika 60</h4>
+        <p>Alexey Pajitnov, engenheiro de computação da Academia de Ciências de Moscou, gostava do quebra-cabeça <i>Pentamino</i>, formado por peças de cinco quadrados. Ele recriou a ideia no computador Electronika 60, reduziu as peças para quatro blocos (os <i>tetraminós</i>) e acrescentou a queda e o encaixe em tempo real. O nome une o prefixo grego <i>tetra</i> ao tênis, seu esporte favorito.</p>
+        <h4>Um vício que se espalhou</h4>
+        <p>Pajitnov passava cópias em disquete aos colegas, que ficavam viciados; segundo relatos, ele chegava a apagar os discos ao fim do expediente para que ninguém deixasse de trabalhar. Mesmo assim o jogo circulou de mão em mão. Vadim Gerasimov, então com 16 anos, levou o jogo para o IBM PC, e dali ele chegou à Hungria, onde surgiram versões para Apple II e Commodore 64. O Tetris tornou-se um dos primeiros produtos de sucesso exportados pela União Soviética.</p>
+        <h4>A guerra pelos direitos</h4>
+        <p>O britânico Robert Stein, da Andromeda, viu o jogo na Hungria e negociou os direitos, repassando-os à Mirrorsoft e à Spectrum Holobyte, que o lançaram na Europa e nos EUA entre 1987 e 1988 e sublicenciaram a Atari, Sega e outras. A estatal soviética Elorg assumiu as negociações, e o contrato de Stein cobria apenas computadores pessoais, o que gerou uma disputa judicial a partir de 1989. Minoru Arakawa, da Nintendo of America, queria o Tetris como jogo de estreia do Game Boy; com a ajuda de Henk Rogers, a Nintendo conquistou os direitos.</p>
+        <h4>Game Boy e a fama mundial</h4>
+        <p>Lançado junto com o Game Boy, o Tetris vendeu mais de 35 milhões de cópias nesse console e virou fenômeno mundial. Em 1993, um Game Boy com Tetris viajou à estação espacial Mir, onde ficou 196 dias e orbitou a Terra mais de 3 mil vezes.</p>
+        <h4>Os direitos voltam ao criador</h4>
+        <p>Pajitnov mudou-se para os Estados Unidos em 1991. Em 1996 os direitos foram revertidos a ele, e junto com Henk Rogers fundou a The Tetris Company, que hoje cuida da marca.</p>
+        <h4>Números e legado</h4>
+        <p>Até dezembro de 2011 foram vendidas cerca de 202 milhões de cópias (aproximadamente 70 milhões físicas e 132 milhões de downloads pagos para celular). Disponível em mais de 65 plataformas, o jogo é o videogame mais adaptado do mundo segundo o Guinness, e a IGN o incluiu entre os dez jogos mais influentes de todos os tempos.</p>
+        <h4>Curiosidades</h4>
+        <p>O chamado <i>efeito Tetris</i> descreve como jogar por muito tempo faz o cérebro continuar “encaixando” formas no dia a dia. Um estudo de 2014 da Universidade de Plymouth sugeriu que jogar Tetris pode reduzir a vontade de consumir calorias, álcool e cigarro. A disputa pelos direitos virou o filme <i>Tetris</i> (Apple TV+, 2023), com Taron Egerton.</p>
+        <p class="about-source">Fonte: <a href="https://pt.wikipedia.org/wiki/Tetris" target="_blank" rel="noopener">Wikipédia &ndash; Tetris</a></p>
       </fieldset>
       <p class="about-note">Tetris® é marca registrada de The Tetris Company. Este projeto é uma homenagem independente, sem vínculo oficial.</p>
       <div class="dialog-actions"><button class="win-button primary">OK</button></div>
